@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "generate:video": "node scripts/generate-video.mjs"
   },
   "dependencies": {
-    "astro": "latest"
+    "astro": "latest",
+    "replicate": "^1.4.0"
   }
 }

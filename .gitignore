@@ -3,6 +3,7 @@ dist/
 .astro/
 .playwright-mcp/
 astro-dev*.log
+astro-live*.log
 loanly-dev*.log
 .tmp-*.html
 

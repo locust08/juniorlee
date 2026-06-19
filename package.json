@@ -10,6 +10,7 @@
     "generate:video": "node scripts/generate-video.mjs"
   },
   "dependencies": {
+    "@lucide/astro": "^1.18.0",
     "astro": "latest",
     "replicate": "^1.4.0"
   }

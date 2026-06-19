@@ -1,6 +1,683 @@
 ---
 import WebflowPage from '../components/WebflowPage.astro';
-import html from '../raw/home-3.html?raw';
+import rawHtml from '../raw/home-3.html?raw';
+
+const interestSectionStyles = `
+.metro-floating-whatsapp {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+  background: #25d366 !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .18) !important;
+  overflow: hidden;
+}
+.metro-floating-whatsapp img {
+  display: block;
+  width: 28px !important;
+  height: 28px !important;
+  object-fit: contain;
+}
+#apply.metro-apply-cta .form-contact-wrapper {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 40px;
+}
+#apply.metro-apply-cta .apply-cta-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+#apply.metro-apply-cta .primary-button-arrow-white {
+  min-width: 180px;
+  justify-content: space-between;
+}
+#apply.metro-apply-cta .primary-button-arrow-white:hover {
+  border-color: transparent;
+  background: #f6b845;
+  color: #000;
+}
+#apply.metro-apply-cta .primary-button-arrow-white:hover .button-arrow-text {
+  color: #000;
+}
+#apply.metro-apply-cta .primary-button-arrow-white:hover .arrow-wrapper.dark {
+  border-color: transparent;
+  background: #f6b845;
+}
+#apply.metro-apply-cta .primary-button-arrow-white:hover .arrow-icon {
+  filter: brightness(0);
+}
+.link-underline.white:hover {
+  color: #f6b845;
+}
+.link-underline.white:hover .link-line.white {
+  background-color: #f6b845;
+}
+#why-us .team-wrap {
+  height: auto;
+  aspect-ratio: 4 / 3;
+}
+#why-us .team-image-wrapper {
+  height: 100%;
+  aspect-ratio: 4 / 3;
+}
+#why-us .industries-project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+#metro-application-form-1 .primary-button.full-width:hover {
+  border-color: #f6b845;
+  background-color: #f6b845;
+  color: #102a37;
+}
+.search-shop-con .primary-button-arrow-white:hover,
+.button-wrapper.nav-style .primary-button-arrow-white:hover {
+  border-width: 1px !important;
+  border-color: #f6b845 !important;
+  outline: 0;
+  box-shadow: none;
+}
+.search-shop-con .primary-button-arrow-white:hover .arrow-wrapper.dark,
+.button-wrapper.nav-style .primary-button-arrow-white:hover .arrow-wrapper.dark {
+  border-width: 0 !important;
+  border-color: transparent !important;
+}
+#trust.metro-trust-labels .home-customers-wrapper {
+  gap: 18px;
+}
+#trust.metro-trust-labels .trust-icon-card {
+  display: flex;
+  min-height: 150px;
+  padding: 10px 8px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+#trust.metro-trust-labels .trust-icon-card .customer-image {
+  width: 74px;
+  height: 74px;
+  margin-bottom: 14px;
+  object-fit: contain;
+}
+#trust.metro-trust-labels .trust-icon-name {
+  color: rgba(16, 42, 55, .72);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.25;
+}
+@media screen and (max-width: 767px) {
+  .process-step-meta {
+    width: 100%;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .process-step-meta .banner-bottom-wrapper,
+  .process-step-meta .inform-block-not-hidden {
+    width: 100%;
+  }
+  .process-step-meta .inform-block-not-hidden {
+    display: grid;
+    gap: 10px;
+  }
+  .process-step-meta .inform-row {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+  }
+  .process-step-meta .check-icons-dark {
+    width: 24px;
+    height: 24px;
+  }
+  .process-step-meta .small-text-dark {
+    margin: 0;
+    line-height: 1.3;
+  }
+  #why-us .button-tablet-show.no-space {
+    margin-top: 30px;
+  }
+  #apply.metro-apply-cta .form-contact-wrapper {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  #apply.metro-apply-cta .apply-cta-actions {
+    justify-content: flex-start;
+  }
+}
+#interest.metro-loan-details {
+  background: #f6f8f4;
+}
+.metro-loan-details .loan-section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  margin-bottom: 16px;
+  padding: 7px 14px;
+  border-radius: 100px;
+  background: rgba(24, 188, 157, .14);
+  color: #007d70;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.metro-loan-details .loan-section-kicker {
+  max-width: 640px;
+  margin-top: -20px;
+  margin-bottom: 34px;
+  color: rgba(14, 42, 55, .72);
+}
+.metro-loan-details .loan-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 28px;
+  margin-bottom: 28px;
+}
+.metro-loan-details .loan-detail-card,
+.metro-loan-details .rate-detail-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 18px 48px rgba(10, 45, 52, .08);
+  color: #102a37;
+}
+.metro-loan-details .loan-detail-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.metro-loan-details .loan-detail-card .loan-detail-media {
+  display: none;
+}
+.metro-loan-details .loan-detail-media {
+  position: relative;
+  min-height: 220px;
+  background: #0d4b3a;
+}
+.metro-loan-details .loan-detail-media img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  opacity: .88;
+}
+.metro-loan-details .loan-detail-card.business .loan-detail-media {
+  background: #19104e;
+}
+.metro-loan-details .loan-detail-badge {
+  position: absolute;
+  left: 24px;
+  bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 7px 14px;
+  border-radius: 100px;
+  background: rgba(24, 188, 157, .92);
+  color: #073f33;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.metro-loan-details .loan-detail-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 32px;
+}
+.metro-loan-details .loan-detail-card h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #007d70;
+  font-size: 28px;
+  line-height: 1.16;
+}
+.metro-loan-details .loan-detail-card p,
+.metro-loan-details .loan-detail-card li {
+  color: rgba(16, 42, 55, .78);
+  font-size: 15px;
+  line-height: 1.52;
+}
+.metro-loan-details .loan-detail-card p {
+  margin-bottom: 14px;
+}
+.metro-loan-details .loan-detail-card ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px 18px;
+  margin-top: 14px;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.metro-loan-details .loan-detail-card li {
+  display: grid;
+  grid-template-columns: 8px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 24px;
+  padding-left: 0;
+  color: #102a37;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+.metro-loan-details .loan-detail-card .doc-dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #18bc9d;
+}
+.metro-loan-details .loan-detail-card .doc-text {
+  display: block;
+  color: #102a37 !important;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  opacity: 1;
+  visibility: visible;
+}
+.metro-loan-details .loan-detail-card .document-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 0;
+  padding: 13px 16px;
+  border: 1px solid rgba(24, 188, 157, .38);
+  border-radius: 8px;
+  background: #f1f7f4;
+  color: #102a37;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease;
+}
+.metro-loan-details .loan-detail-card .document-toggle:hover {
+  border-color: #18bc9d;
+  background: #e8f6f1;
+}
+.metro-loan-details .loan-detail-card .document-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-left: 14px;
+  border-radius: 50%;
+  background: #0d7f69;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+}
+.metro-loan-details .loan-detail-card .document-list[hidden] {
+  display: none;
+}
+.metro-loan-details .loan-detail-card .loan-meta {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 13px 16px;
+  border-left: 4px solid #18bc9d;
+  border-radius: 8px;
+  background: #f1f7f4;
+  color: #0d4b3a;
+  font-weight: 700;
+}
+.metro-loan-details .loan-detail-card .primary-button,
+.metro-loan-details .rate-detail-card .primary-button {
+  align-self: flex-start;
+  margin-top: 28px;
+}
+.metro-loan-details .loan-detail-card .primary-button {
+  min-width: 180px;
+  margin-top: 16px;
+  justify-content: center;
+  text-align: center;
+}
+.metro-loan-details .loan-detail-card .primary-button:hover {
+  border-color: #f6b845;
+  background-color: #f6b845;
+  color: #102a37;
+}
+.metro-loan-details .loan-application-panel {
+  display: none;
+  margin-top: 28px;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 30px 24px 24px;
+  border-radius: 10px;
+  border-top: 4px solid #f6b845;
+  background: #fff;
+  box-shadow: 0 18px 48px rgba(10, 45, 52, .12);
+}
+.metro-loan-details .loan-application-panel.is-visible {
+  display: block;
+}
+.metro-loan-details .loan-application-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  align-items: center;
+  margin-bottom: 28px;
+  text-align: center;
+}
+.metro-loan-details .loan-application-header,
+.metro-loan-details .loan-form-grid {
+  margin-right: auto;
+  margin-left: auto;
+}
+.metro-loan-details .loan-application-header {
+  max-width: 620px;
+}
+.metro-loan-details .loan-application-header h3 {
+  margin: 0 0 8px;
+  color: #102a37;
+  font-size: 30px;
+  line-height: 1.18;
+}
+.metro-loan-details .loan-application-header p {
+  max-width: 600px;
+  margin: 0;
+  color: rgba(16, 42, 55, .62);
+  font-size: 14px;
+  line-height: 1.35;
+}
+.metro-loan-details .loan-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 900px;
+  gap: 14px 18px;
+  align-items: stretch;
+}
+.metro-loan-details .loan-form-grid .text-field {
+  min-height: 44px;
+  margin-bottom: 0;
+  padding: 11px 16px;
+  border: 1px solid rgba(24, 188, 157, .36);
+  border-radius: 50px;
+  background: #fff;
+  color: #102a37;
+  font-size: 14px;
+  line-height: 1.2;
+}
+.metro-loan-details .loan-form-grid .text-field::placeholder {
+  color: rgba(16, 42, 55, .58);
+}
+.metro-loan-details .loan-form-grid .text-field:focus {
+  border-color: #18bc9d;
+}
+.metro-loan-details .loan-form-grid .primary-button-submit {
+  position: static !important;
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: min(100%, 420px);
+  min-height: 48px;
+  margin-top: 4px;
+  padding-right: 28px;
+  padding-left: 28px;
+  border-radius: 50px;
+  background: #158a71;
+  color: #fff;
+  text-align: center;
+}
+.metro-loan-details .loan-form-grid .primary-button-submit:hover {
+  border-color: #f6b845;
+  background: #f6b845;
+  color: #102a37;
+}
+.metro-loan-details .loan-form-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  min-width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(16, 42, 55, .46);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.metro-loan-details .rate-detail-card {
+  display: grid;
+  grid-template-columns: minmax(280px, .8fr) 1.2fr;
+  gap: 0;
+  margin-bottom: 28px;
+  border: 1px solid rgba(13, 75, 58, .1);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgba(10, 45, 52, .1);
+}
+.metro-loan-details .rate-heading-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 310px;
+  padding: 52px 42px;
+  background: linear-gradient(145deg, #0d4b3a 0%, #0f6658 100%);
+  text-align: center;
+}
+.metro-loan-details .rate-heading-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 48, 42, .58);
+}
+.metro-loan-details .rate-heading-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.metro-loan-details .rate-title {
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #fff;
+  font-size: 46px;
+  line-height: 1.08;
+}
+.metro-loan-details .rate-subtitle {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin-top: 18px;
+  margin-bottom: 0;
+  color: rgba(255,255,255,.78);
+}
+.metro-loan-details .rate-content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding: 32px;
+  background: #fbfdfb;
+}
+.metro-loan-details .rate-item {
+  padding: 22px;
+  border: 1px solid rgba(13, 75, 58, .12);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(10, 45, 52, .04);
+}
+.metro-loan-details .rate-item.featured {
+  grid-column: 1 / -1;
+  background: #eff8f5;
+}
+.metro-loan-details .rate-item.featured:first-child {
+  display: grid;
+  grid-template-columns: .45fr 1fr;
+  gap: 18px;
+  align-items: center;
+  border-left: 5px solid #18bc9d;
+}
+.metro-loan-details .rate-item h3 {
+  margin: 0 0 9px;
+  color: #007d70;
+  font-size: 21px;
+  line-height: 1.2;
+}
+.metro-loan-details .rate-item p {
+  margin-bottom: 0;
+  color: rgba(16, 42, 55, .78);
+  font-size: 15px;
+  line-height: 1.45;
+}
+.metro-loan-details .rate-value {
+  color: #102a37;
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 800;
+}
+@media screen and (max-width: 991px) {
+  .metro-loan-details .loan-details-grid,
+  .metro-loan-details .rate-detail-card {
+    grid-template-columns: 1fr;
+  }
+  .metro-loan-details .rate-heading-wrap {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+@media screen and (max-width: 767px) {
+  .metro-loan-details .loan-section-kicker {
+    margin-top: -12px;
+  }
+  .metro-loan-details .loan-detail-content,
+  .metro-loan-details .rate-content,
+  .metro-loan-details .rate-heading-wrap {
+    padding: 24px;
+  }
+  .metro-loan-details .loan-detail-card ul,
+  .metro-loan-details .rate-content,
+  .metro-loan-details .rate-item.featured:first-child,
+  .metro-loan-details .loan-application-header,
+  .metro-loan-details .loan-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .metro-loan-details .loan-application-panel {
+    width: min(100%, 480px);
+    padding: 24px;
+  }
+  .metro-loan-details .loan-detail-media img {
+    height: 210px;
+  }
+  .metro-loan-details .rate-title {
+    font-size: 36px;
+  }
+}
+`;
+
+const interestSectionHtml = `<div class="section metro-loan-details" id="interest"><div class="base-container w-container"><div class="title-horizontal with-space"><h2 class="section-title">Loan Options & Interest Rate</h2><div class="button-tablet-hide"><a class="primary-button-arrow w-inline-block" href="#loan-application-form" data-loan-form-trigger="general"><div class="button-arrow-text">APPLY NOW</div><div class="arrow-wrapper"><img alt="icon" class="arrow-icon" loading="lazy" src="/images/svg-arrow-right.svg"/></div></a></div></div><p class="loan-section-kicker">Choose the loan type that fits your needs, review the required documents, and check the repayment range before applying.</p><article class="rate-detail-card"><div class="rate-heading-wrap"><img alt="Loan interest rate paperwork" class="rate-heading-image" loading="lazy" src="/images/pexels-rdne-7821913-1.jpg"/><h2 class="rate-title">Interest<br/>Rate</h2><p class="rate-subtitle">Clear fixed-rate terms with repayment options from 6 to 60 months.</p></div><div class="rate-content"><div class="rate-item featured"><h3>Fixed rate</h3><p>From 8% - 12% APR and payment options range from 6 months to 60 months</p></div><div class="rate-item"><h3>Minimum repayment</h3><p class="rate-value">6 months</p></div><div class="rate-item"><h3>Maximum repayment</h3><p class="rate-value">60 months</p></div><div class="rate-item featured"><h3>Representative example</h3><p>Amount of credit RM 5000 borrowed for 180 days. Interest: RM 448. Total amount payable: RM 5448</p></div></div></article><div class="loan-details-grid"><article class="loan-detail-card personal"><div class="loan-detail-media"><img alt="Personal loan option illustration" loading="lazy" src="/metro/personal-loan-house.png"/><span class="loan-detail-badge">Personal financing</span></div><div class="loan-detail-content"><h2>Personal Loan</h2><p>A personal loan might be right for you if you want to fund a big expense or if you want to consolidate debt. Personal loans may come with lower interest rates than credit cards, so funding a big expense or project with a personal loan could save you thousands of dollars on interest payments.</p><p>This is a loan scheme which provides loans to individual with a source of income. It comes with a monthly repayment plan to meet your personal needs. A personal loan can also be defined as a short term loan and it may be the answer to your short-term cash needs. This is because a personal loan normally has a repayment period that is shorter than other types of loan such as housing loan or a mortgage. We have got customized personal loan to meet your need with no hidden cost for consultation fee.</p><p class="loan-meta">Minimum monthly salary of RM3000<br/>Loan Range from RM500 to RM100,000</p><button class="document-toggle" type="button" aria-expanded="false"><span>Required Documents</span><span class="document-toggle-icon" aria-hidden="true">+</span></button><ul class="document-list" hidden><li><span class="doc-dot"></span><span class="doc-text">NRIC</span></li><li><span class="doc-dot"></span><span class="doc-text">CONTACT NUMBER</span></li><li><span class="doc-dot"></span><span class="doc-text">LATEST 3 MONTHS PAY SLIP</span></li><li><span class="doc-dot"></span><span class="doc-text">LATEST ELECTRIC &amp; WATER BILL</span></li><li><span class="doc-dot"></span><span class="doc-text">LATEST 3 MONTHS BANK STATEMENT</span></li><li><span class="doc-dot"></span><span class="doc-text">S&amp;P</span></li><li><span class="doc-dot"></span><span class="doc-text">TENANCY AGREEMENT</span></li><li><span class="doc-dot"></span><span class="doc-text">LATEST EPF STATEMENT</span></li></ul><a class="primary-button w-button" href="#loan-application-form" data-loan-form-trigger="Personal Loan">APPLY NOW</a></div></article><article class="loan-detail-card business"><div class="loan-detail-media"><img alt="Business loan option illustration" loading="lazy" src="/metro/business-loan-gear.png"/><span class="loan-detail-badge">Working capital</span></div><div class="loan-detail-content"><h2>Business Loan</h2><p>Take your business further with the right business loan. We offer flexible loan tenures and high financing margins.</p><p>We are here to help people with their financing needs, whether they are small business or corporate group. To be truly effective as a money lender advisor, we, Metro Pinjaman Berlesen, believe it is important to offer a wide range of services and solutions. Our offerings provide funds for running your business, such as for purchasing of stock, managing overheads and other business activities, to fulfil your working capital needs.</p><button class="document-toggle" type="button" aria-expanded="false"><span>Required Documents</span><span class="document-toggle-icon" aria-hidden="true">+</span></button><ul class="document-list" hidden><li><span class="doc-dot"></span><span class="doc-text">NRIC copy</span></li><li><span class="doc-dot"></span><span class="doc-text">NAME CARD</span></li><li><span class="doc-dot"></span><span class="doc-text">BORANG B &amp; BORANG D</span></li><li><span class="doc-dot"></span><span class="doc-text">LATEST 3 MONTHS BANK STATEMENT</span></li><li><span class="doc-dot"></span><span class="doc-text">S&amp;P</span></li><li><span class="doc-dot"></span><span class="doc-text">LATEST ELECTRIC &amp; WATER BILL</span></li><li><span class="doc-dot"></span><span class="doc-text">FORM 24/49,42,11A</span></li><li><span class="doc-dot"></span><span class="doc-text">LATEST EPF STATEMENT</span></li></ul><a class="primary-button w-button" href="#loan-application-form" data-loan-form-trigger="Business Loan">APPLY NOW</a></div></article></div><div class="button-tablet-show"><a class="primary-button-arrow w-inline-block" href="#loan-application-form" data-loan-form-trigger="general"><div class="button-arrow-text">APPLY NOW</div><div class="arrow-wrapper"><img alt="icon" class="arrow-icon" loading="lazy" src="/images/svg-arrow-right.svg"/></div></a></div><div class="loan-application-panel" id="loan-application-form" aria-hidden="true"><div class="loan-application-header"><div><h3>Start your application</h3><p>Share your basic details and our team will follow up about the loan option you selected.</p></div><button class="loan-form-close" type="button" aria-label="Close application form">×</button></div><form class="loan-form-grid" id="metro-loan-inline-form" method="post" name="metro-loan-inline-form"><input class="text-field w-input" maxlength="256" name="name" placeholder="Your name" required="" type="text"/><input class="text-field w-input" maxlength="256" name="phone" placeholder="Phone number" required="" type="tel"/><input class="text-field w-input" maxlength="256" name="loan_type" placeholder="Loan type" type="text" readonly=""/><input class="primary-button-submit w-button" data-wait="Please wait..." type="submit" value="Submit"/></form></div></div></div>`;
+
+const applySectionHtml = `<section class="section overflow-hidden metro-apply-cta" data-w-id="2edeaae4-3cbc-97eb-51f1-6d96cbc91edd" id="apply"><div class="w-layout-blockcontainer base-container w-container"><div class="form-contact-wrapper"><div class="title-contact-wrapper"><h2 class="section-title white-text">Apply Now</h2></div><div class="apply-cta-actions"><a class="primary-button-arrow-white w-inline-block" href="/#interest"><div class="button-arrow-text">APPLY NOW</div><div class="arrow-wrapper dark"><img alt="icon" class="arrow-icon" loading="lazy" src="/images/arrow-white.svg"/></div></a></div></div></div><img alt="Debt consolidation and repayment planning illustration" class="cta-image" data-w-id="2edeaae4-3cbc-97eb-51f1-6d96cbc91ef0" loading="lazy" sizes="100vw" src="/images/pexels-kindelmedia-7579046.jpg"/><div class="section-overlay"></div></section>`;
+
+const trustSectionHtml = `<div class="section metro-trust-labels" id="trust"><div class="base-container w-container"><div class="section-title-wrapper no-spacing"><div class="section-subtitle" data-w-id="cf37630d-211a-691d-8847-4677c6e91ddb" style="opacity:0">Trust &amp; Security</div></div><div class="w-layout-grid home-customers-wrapper" data-w-id="cf37630d-211a-691d-8847-4677c6e91ddd" style="opacity:0"><div class="trust-icon-card"><img alt="Secure application handling icon" class="customer-image" loading="lazy" src="/metro/icon-lock.png"/><div class="trust-icon-name">Secure Application</div></div><div class="trust-icon-card"><img alt="Fast approval processing icon" class="customer-image" loading="lazy" src="/metro/icon-minutes.png"/><div class="trust-icon-name">Fast Approval</div></div><div class="trust-icon-card"><img alt="No interest first week icon" class="customer-image" loading="lazy" src="/metro/icon-no-interest.png"/><div class="trust-icon-name">0% First Week</div></div><div class="trust-icon-card"><img alt="No ATM card required icon" class="customer-image" loading="lazy" src="/metro/icon-atm.png"/><div class="trust-icon-name">No ATM Card</div></div><div class="trust-icon-card"><img alt="Malaysian ID eligibility icon" class="customer-image" loading="lazy" src="/metro/icon-id.png"/><div class="trust-icon-name">Malaysian Applicants</div></div><div class="trust-icon-card"><img alt="Bank transfer payout icon" class="customer-image" loading="lazy" src="/metro/icon-get-money.png"/><div class="trust-icon-name">Bank Transfer</div></div></div></div></div>`;
+
+const heroApplicationFormHtml = `<form class="form-banner-home" data-name="Email Form" data-notification-recipients="ava@locus-t.com.my,metropinjamanberlesan@gmail.com" data-wf-element-id="eea4b1cc-0ab4-4b9e-a3a4-949c038c45c6" data-wf-page-id="678918d2a9f3b2f0e792e036" id="metro-application-form-1" method="post" name="metro-application-form-1"><div class="flex-field-wrapper"><input class="text-field-banner w-input" data-name="Name" id="Name-4" maxlength="256" name="name" placeholder="Your Name*" required="" type="text"/><input class="text-field-banner w-input" data-name="Phone" id="Name-6" maxlength="256" name="phone" placeholder="Your Phone*" required="" type="tel"/></div><input class="text-field-banner w-input" data-name="Email" id="email-4" maxlength="256" name="email" placeholder="Your Email*" required="" type="email"/><input class="text-field-banner w-input" data-name="Net Salary" id="Net-Salary-4" maxlength="256" name="net_salary" placeholder="Net Salary*" required="" type="text"/><input class="text-field-banner w-input" data-name="Loan Type" id="Loan-Type-4" maxlength="256" name="loan_type" placeholder="Business Loan" type="text"/><input class="text-field-banner w-input" data-name="Loan Amount" id="Loan-Amount-4" maxlength="256" name="loan_amount" placeholder="Loan Amount*" required="" type="text"/><input class="text-field-banner w-input" data-name="Location" id="Location-4" maxlength="256" name="location" placeholder="Location*" required="" type="text"/><input class="text-field-banner no-bottom w-input" data-name="Prefer Call Back Time" id="Callback-Time-4" maxlength="256" name="callback_time" placeholder="Prefer Call Back Time*" required="" type="text"/><div class="button-wrapper-item"><input class="primary-button full-width w-button" data-wait="Please wait..." type="submit" value="Apply Now"/></div></form>`;
+
+const applicationFormHtml = `<form class="loan-form-grid" id="metro-loan-inline-form" method="post" name="metro-loan-inline-form"><input class="text-field w-input" maxlength="256" name="name" placeholder="Name *" required="" type="text"/><input class="text-field w-input" maxlength="256" name="contact_number" placeholder="Contact Number *" required="" type="tel"/><input class="text-field w-input" maxlength="256" name="email" placeholder="Email *" required="" type="email"/><input class="text-field w-input" maxlength="256" name="net_salary" placeholder="Net Salary *" required="" type="text"/><input class="text-field w-input" maxlength="256" name="loan_type" placeholder="Loan Type *" required="" type="text"/><input class="text-field w-input" maxlength="256" name="loan_amount" placeholder="Loan Amount *" required="" type="text"/><input class="text-field w-input" maxlength="256" name="location" placeholder="Location *" required="" type="text"/><input class="text-field w-input" maxlength="256" name="callback_time" placeholder="Prefer Call Back Time *" required="" type="text"/><input class="primary-button-submit w-button" data-wait="Please wait..." type="submit" value="Apply Now"/></form>`;
+
+const loanFormScript = `<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var panel = document.getElementById("loan-application-form");
+  if (!panel) return;
+  var loanInput = panel.querySelector('input[name="loan_type"]');
+  var nameInput = panel.querySelector('input[name="name"]');
+  function openLoanForm(loanType) {
+    panel.classList.add("is-visible");
+    panel.setAttribute("aria-hidden", "false");
+    if (loanInput) loanInput.value = loanType && loanType !== "general" ? loanType : "";
+    panel.scrollIntoView({ block: "start", behavior: "smooth" });
+    window.setTimeout(function () { if (nameInput) nameInput.focus(); }, 350);
+  }
+  document.querySelectorAll("[data-loan-form-trigger]").forEach(function (button) {
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
+      openLoanForm(button.getAttribute("data-loan-form-trigger"));
+    });
+  });
+  if (window.location.hash === "#loan-application-form") {
+    openLoanForm("general");
+  }
+  var closeButton = panel.querySelector(".loan-form-close");
+  if (closeButton) {
+    closeButton.addEventListener("click", function () {
+      panel.classList.remove("is-visible");
+      panel.setAttribute("aria-hidden", "true");
+    });
+  }
+  document.querySelectorAll(".document-toggle").forEach(function (toggle) {
+    var list = toggle.nextElementSibling;
+    var icon = toggle.querySelector(".document-toggle-icon");
+    toggle.addEventListener("click", function () {
+      if (!list) return;
+      var isOpen = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!isOpen));
+      list.hidden = isOpen;
+      if (icon) icon.textContent = isOpen ? "+" : "-";
+    });
+  });
+});
+</script>`;
+
+const html = rawHtml
+  .replace('</style>', `${interestSectionStyles}</style>`)
+  .replace('</body>', `${loanFormScript}</body>`)
+  .replace('<a class="nav-link w-nav-link" href="/#apply">Apply Now</a>', '')
+  .replace('<a class="nav-link w-nav-link" href="/#interest">Documents</a>', '')
+  .replace('<a class="nav-link w-nav-link" href="/#loan-programs">Loan Programs</a>', '')
+  .replaceAll('href="/#loan-programs"', 'href="/#home"')
+  .replace('<a class="footer-link" href="/#why-us">Trust</a>', '<a class="footer-link" href="/#why-us">Why Us</a>')
+  .replace('<a class="footer-link" href="/#interest">Documents</a>', '<a class="footer-link" href="/#contact">Contact</a>')
+  .replace('<a class="footer-link" href="/#home">Loans</a>', '<a class="footer-link" href="/#interest">Loan Options</a>')
+  .replace('<p class="footer-brand-description">Jalan Metro 1, Metro Prima, 52100 Kuala Lumpur, Federal Territory of Kuala Lumpur</p>', '')
+  .replaceAll('/metro/generated/why-no-atm-card-real.png', '/metro/generated/why-no-atm-card-v2.png')
+  .replaceAll('/metro/generated/why-malaysian-only-real.png', '/metro/generated/why-malaysian-only-v2.png')
+  .replaceAll('/metro/generated/why-no-guarantor-dedicated.png', '/metro/generated/why-no-guarantor-v2.png')
+  .replace(/<section class="section light-background" id="loan-programs">[\s\S]*?<\/section>/, '')
+  .replace(
+    /(<section class="section light-background" id="loan-programs">[\s\S]*?<div class="button-tablet-hide"><a class="primary-button-arrow w-inline-block" href=")\/#apply(")/,
+    '$1/#interest$2'
+  )
+  .replace(/<form class="form-banner-home"[\s\S]*?id="metro-application-form-1"[\s\S]*?<\/form>/, heroApplicationFormHtml)
+  .replace(
+    /<section class="section overflow-hidden"[\s\S]*?<\/section><div class="section light-background" id="why-us">/,
+    `${applySectionHtml}<div class="section light-background" id="why-us">`
+  )
+  .replace(
+    /(<div class="section light-background" id="why-us">[\s\S]*?<div class="button-tablet-hide with-space"><a class="primary-button-arrow w-inline-block" href=")\/#apply(")/,
+    '$1/#interest$2'
+  )
+  .replace(
+    /<div class="section without-bottom-spacing" id="interest">[\s\S]*?<div class="section" id="trust">/,
+    `${interestSectionHtml}<div class="section" id="trust">`
+  )
+  .replace(
+    /<div class="section" id="trust">[\s\S]*?<\/div><\/div><\/div><div class="footer" id="contact">/,
+    `${trustSectionHtml}<div class="footer" id="contact">`
+  )
+  .replace(/<form class="loan-form-grid" id="metro-loan-inline-form"[\s\S]*?<\/form>/, applicationFormHtml)
+  .replace(/<span class="loan-detail-badge">[\s\S]*?<\/span>/g, '')
+  .replace("Start your application", "Apply Now");
 ---
 
 <WebflowPage html={html} />

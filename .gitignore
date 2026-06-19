@@ -5,6 +5,8 @@ dist/
 astro-dev*.log
 astro-live*.log
 loanly-dev*.log
+.astro-dev*.log
+.codex-dev*.log
 .tmp-*.html
 
 # Legacy root-level Webflow export copies; Astro uses src/raw and public instead.
